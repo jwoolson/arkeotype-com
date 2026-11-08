@@ -1,0 +1,25 @@
+# Arkeotype
+
+> Arkeotype is a local-first "project memory layer" for macOS that is coming in 2026. Arkeotype keeps the meaning of a project in plain-text files inside the project's own folder, beside the work it describes. Backups preserve the files; Arkeotype preserves the context needed to understand them.
+
+Arkeotype is in development and has not been released. Key ideas:
+
+- **Three layers travel together in one folder.** The *object* is the original file in its native format. The *representation* is a way to perceive it without the original software, such as a PDF, transcript, or CSV. The *context* is a `MANIFEST.md` file recording provenance, relationships, decisions, and what supersedes what.
+- **Nothing is moved, renamed, or imported.** There is no database to lose and no service to cancel. The files are plain UTF-8 text with YAML front matter, structured enough to index and search but loose enough to write anything into.
+- **Graceful degradation.** Indexes and the interface can be regenerated. If the AI or the Arkeotype app itself disappears, the manifest and the files remain intelligible. AI may help reconstruct meaning, but AI must never be required to recover it.
+- **Arkeotype is not** a backup product, a DAM replacement, an archival database, a note-taking graph, a cloud service, or an LLM wrapper.
+- **Works with AI coding agents.** The canonical file is named `MANIFEST.md` for what it contains. Arkeotype adds small pointer files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) that direct each AI tool to that manifest.
+- Local-first, vendor-agnostic, bring your own storage.
+
+Arkeotype is based in Fredonia, New York, and is an affiliate of the SUNY Fredonia Center for Innovation and Economic Development (CIED). It was founded by Jonathan H. Woolson. Arkeotype is pronounced ark-e-oh-taip.
+
+- Contact: hello@arkeotype.com (email to be told when Arkeotype ships)
+
+## Product
+
+- [Arkeotype overview](https://arkeotype.com/): The problem, how it works, design principles, and AI compatibility
+
+## About
+
+- [Jonathan H. Woolson](https://jwoolson.com): Founder; web developer and enterprise CMS consultant
+- [SUNY Fredonia CIED](https://www.fredonia.edu/about/offices/center-innovation-economic-development): The technology incubator Arkeotype is affiliated with

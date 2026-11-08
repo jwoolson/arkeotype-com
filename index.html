@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+	<!-- Google Analytics preconnect/prefectch defers GA4 gtag.js loading until first user interaction -->
+	<link rel="preconnect" href="https://www.googletagmanager.com">
+	<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+	<!-- ARKEOTYPE.COM - WEBSITE VERSION: 2026-11-07_v002.11 (primary buttons #AF0E13 + white text, WCAG AAA 7.25:1; v002.10 active Home link red over hero photo; v002.09 active nav underline; v002.06 accent colour blue -> Alizarin Red #EC1C24, AA-safe variants; v002.05 added mobile hamburger menu; v002.04 added Home nav item; v002.03 added /contact/ page with Google Form; v002.02 brand guide v4.1 red #EC1C24 logo and favicons) -->
+	
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arkeotype App — The project memory layer</title>
+  <meta name="description" content="Arkeotype app keeps the meaning of a project in plain text beside the work itself. Backups preserve the files; Arkeotype preserves the context needed to understand them. Local-first. Coming 2026.">
+  <link rel="canonical" href="https://arkeotype.com/">
+  
+  <!-- Favicons -->  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ec1c24">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+  <meta name="color-scheme" content="dark light">
+  
+	<!-- LLMs.txt file intended for agentic browsing -->
+  <link rel="describedby" href="https://arkeotype.com/llms.txt">
+
+  <meta property="og:title" content="Arkeotype">
+  <meta property="og:description" content="Arkeotype keeps the meaning of a project in plain text beside the work itself. Backups preserve the files; Arkeotype preserves the context needed to understand them. Local-first. Coming 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://arkeotype.com">
+  <meta property="og:image" content="https://arkeotype.com/images/og-image-arkeotype.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arkeotype">
+  <meta name="twitter:description" content="Arkeotype keeps the meaning of a project in plain text beside the work itself. Backups preserve the files; Arkeotype preserves the context needed to understand them. Local-first. Coming 2026.">
+  <meta name="twitter:image" content="https://arkeotype.com/images/og-image-arkeotype.png">
+
+  <!-- Schema.org structured data: Arkeotype as a software product (no offers/ratings until it ships) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["Product", "SoftwareApplication"],
+    "@id": "https://arkeotype.com/#product",
+    "name": "Arkeotype",
+    "url": "https://arkeotype.com/",
+    "description": "Arkeotype keeps the meaning of a project in plain text beside the work itself. Backups preserve the files; Arkeotype preserves the context needed to understand them. Local-first. Coming 2026.",
+    "disambiguatingDescription": "Arkeotype is a macOS software application, a project memory layer. The name is a product brand, not a spelling of the word \"archetype\".",
+    "brand": { "@type": "Brand", "name": "Arkeotype" },
+    "logo": "https://arkeotype.com/ms-icon-310x310.png",
+    "image": "https://arkeotype.com/images/og-image-arkeotype.png",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "macOS 14 or later",
+    "keywords": "project memory layer, MANIFEST.md, local-first, plain text, project metadata, macOS"
+  }
+  </script>
+  
+  <link rel="preload" as="image" type="image/webp" fetchpriority="high" href="images/10x_Dunkirk-wide-fullsize-3000px-IMG_1676.webp">
+  
+  <script>
+    // Set the theme before first paint so there is no flash of the wrong one.
+    try {
+      var t = localStorage.getItem('arkeotype-theme');
+      if (t) document.documentElement.dataset.theme = t;
+      else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+        document.documentElement.dataset.theme = 'light';
+    } catch (e) {}
+  </script>
+  
+  <style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* surfaces — ported from jwoolson.com, shifted a few degrees cooler */
+  --bg-primary: #0a0f16;
+  --bg-secondary: #101a25;
+  --bg-card: rgba(16, 26, 37, 0.72);
+  --bg-subtle: #16212e;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(236, 28, 36, 0.45);
+
+  /* text */
+  --text-primary: #f4f7fa;
+  --text-secondary: #c5d1dd;
+  --text-muted: #8b9aab;
+
+  /* accent — brand Alizarin Red #EC1C24, lifted to #ff5a5f so text passes WCAG AA (4.5:1) on every dark surface;
+     #EC1C24 itself is only ~4.0:1 here, so it is kept for the logo, glows and borders (3:1 non-text rule) */
+  --accent: #ff5a5f;
+  --accent-hover: #ff8a8d;
+  --accent-glow: rgba(236, 28, 36, 0.16);
+  --accent-contrast: #07111b;
+  /* solid buttons: deep Alizarin, white text = 7.25:1 (AAA); hover 9.68:1. Same in both themes. */
+  --btn-bg: #af0e13;
+  --btn-bg-hover: #8c0b0f;
+  --btn-text: #ffffff;
+
+  /* stone — reserved for the one layer that depends on nothing */
+  --stone: #d9a441;
+  --stone-glow: rgba(217, 164, 65, 0.15);
+  --moss: #9cba5f;
+
+  --tag-bg: rgba(236, 28, 36, 0.10);
+  --tag-border: rgba(236, 28, 36, 0.35);
+  --tag-text: #ffb3b5;
+  --nav-bg: rgba(10, 15, 22, 0.82);
+  --logo-type: #fff;
+  --logo-mark: #ec1c24;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono", "Courier New", monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,.4), 0 2px 4px -2px rgba(0,0,0,.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.5), 0 4px 6px -4px rgba(0,0,0,.5);
+  --transition: all .25s cubic-bezier(.16, 1, .3, 1);
+
+  --measure: 40rem;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f7f9fb;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-subtle: #eef2f6;
+  --border: rgba(15, 23, 42, 0.09);
+  --border-accent: rgba(236, 28, 36, 0.35);
+  --text-primary: #0f1a24;
+  --text-secondary: #33424f;
+  --text-muted: #56677a;
+  --accent: #af0e13;
+  --accent-hover: #a01218;
+  --accent-glow: rgba(236, 28, 36, 0.12);
+  --accent-contrast: #ffffff;
+  --stone: #8a6516;
+  --stone-glow: rgba(138, 101, 22, 0.12);
+  --moss: #4f6b1f;
+  --tag-bg: rgba(236, 28, 36, 0.07);
+  --tag-border: rgba(236, 28, 36, 0.30);
+  --tag-text: #a01218;
+  --nav-bg: rgba(247, 249, 251, 0.85);
+  --logo-type: #231f20;
+  --logo-mark: #ec1c24;
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -2px rgba(0,0,0,.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.04);
+}
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased;
+       -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.65;
+  overflow-x: hidden;
+  transition: background-color .3s, color .3s;
+}
+
+h1, h2, h3 { color: var(--text-primary); line-height: 1.2;
+             letter-spacing: -0.025em; font-weight: 700; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h3 { font-size: 1.1rem; font-weight: 650; letter-spacing: -0.015em; }
+p { overflow-wrap: break-word; }
+a { color: var(--accent); }
+
+.container { width: 100%; max-width: 68rem; margin: 0 auto;
+             padding: 0 1.5rem; position: relative; z-index: 1; }
+.measure { max-width: var(--measure); }
+
+/* every section gets its rhythm from exactly one rule */
+.section { padding: 4.5rem 0; }
+.section + .section { border-top: 1px solid var(--border); }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .25rem .75rem; margin-bottom: .875rem;
+  border-radius: var(--radius-full);
+  background: var(--tag-bg); border: 1px solid var(--tag-border);
+  color: var(--tag-text);
+  font-family: var(--font-mono); font-size: .75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.eyebrow--stone { background: var(--stone-glow);
+                  border-color: rgba(217,164,65,.28); color: var(--stone); }
+
+.lede { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.75; }
+.lede + .lede { margin-top: 1rem; }
+.lede strong { color: var(--text-primary); font-weight: 650; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: .625rem 1.125rem; border-radius: var(--radius-sm);
+  font-size: .92rem; font-weight: 600; text-decoration: none;
+  border: 1px solid transparent; cursor: pointer;
+  transition: var(--transition); font-family: inherit;
+}
+.btn-primary { background: var(--btn-bg); color: var(--btn-text);
+               box-shadow: 0 2px 10px var(--accent-glow); }
+.btn-primary:hover { background: var(--btn-bg-hover); color: var(--btn-text); transform: translateY(-1px); }
+.btn-secondary { background: var(--bg-card); color: var(--text-primary);
+                 border-color: var(--border); backdrop-filter: blur(10px); }
+.btn-secondary:hover { background: var(--bg-subtle);
+                       border-color: var(--border-accent); transform: translateY(-1px); }
+
+.card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.5rem;
+  backdrop-filter: blur(10px); transition: var(--transition);
+}
+.card:hover { border-color: var(--border-accent); box-shadow: var(--shadow-md); }
+.card h3 { margin-bottom: .5rem; }
+.card p { color: var(--text-muted); font-size: .8rem; line-height: 1.6; }
+.card .kicker { font-family: var(--font-mono); font-size: .9rem; font-weight: 700;
+                text-transform: uppercase; letter-spacing: .1em;
+                color: var(--accent); margin-bottom: .625rem; display: block; }
+.card .kicker--moss { color: var(--moss); }
+.card .kicker--stone { color: var(--stone); }
+
+.grid { display: grid; gap: 1.25rem;
+        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.split { display: grid; gap: 2.5rem; align-items: start;
+         grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+.section-head { margin-bottom: 2.25rem; }
+h2 + .lede { margin-top: 1rem; }
+.lede--quiet { font-size: 1rem; color: var(--text-muted); }
+.lede--gap { margin-top: 1.5rem; }
+h2 + .chips, .lede + .chips { margin-top: 1.25rem; }
+.quote-block { margin-bottom: 2.5rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip {
+  display: inline-block; padding: .3rem .7rem;
+  background: var(--bg-subtle); border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: .84rem; color: var(--text-secondary);
+  transition: var(--transition);
+}
+a.chip { text-decoration: none; }
+a.chip:hover { color: var(--accent); border-color: var(--border-accent);
+               background: var(--tag-bg); }
+.chip code { font-family: var(--font-mono); font-size: .95em; color: var(--accent); }
+
+blockquote.pull {
+  border-left: 3px solid var(--stone);
+  padding: .25rem 0 .25rem 1.25rem;
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.5; letter-spacing: -0.015em;
+  color: var(--text-primary); font-weight: 500;
+}
+blockquote.pull cite { display: block; margin-top: .75rem; font-style: normal;
+  font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+
+/* ---- controls ---- */
+.skip {
+  position: absolute; top: -4rem; left: 1.25rem; z-index: 10000;
+  background: var(--accent); color: var(--accent-contrast);
+  padding: .625rem 1rem; border-radius: var(--radius-sm);
+  font-weight: 600; text-decoration: none; transition: top .2s;
+}
+.skip:focus { top: 1rem; }
+
+.theme-toggle {
+  width: 2.375rem; height: 2.375rem; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-primary); cursor: pointer;
+  backdrop-filter: blur(10px); transition: var(--transition);
+}
+.theme-toggle:hover { border-color: var(--border-accent); color: var(--accent); }
+.theme-toggle svg { width: 1.0625rem; height: 1.0625rem; }
+/* the icon shows the theme you'd switch to, matching the aria-label */
+.theme-toggle .icon-moon { display: none; }
+[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px;
+}
+
+/* ---- footer ---- */
+.site-footer { padding: 3.5rem 0 4rem; border-top: 1px solid var(--border);
+               text-align: center; }
+.site-footer .coming { display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-mono); font-size: .75rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1.25rem; }
+.site-footer .org { font-weight: 650; color: var(--text-primary); }
+.site-footer .loc { color: var(--text-muted); font-size: .875rem; }
+.site-footer .mail { display: inline-block; margin-top: .75rem;
+                     font-size: .9375rem; color: var(--accent); }
+.site-footer .incubator { margin: 1.75rem auto 0; max-width: 34rem;
+  font-size: .78rem; line-height: 1.6; color: var(--text-muted); }
+.site-footer .incubator a { color: var(--text-muted);
+  text-decoration: underline; text-underline-offset: 2px;
+  text-decoration-color: var(--border); }
+.site-footer .incubator a:hover { color: var(--accent);
+                                  text-decoration-color: var(--accent); }
+.site-footer .etymology { margin-top: 2.5rem; font-family: var(--font-mono);
+  font-size: .72rem; letter-spacing: .04em; color: var(--text-muted); }
+.site-footer .closing { margin-top: 2.25rem; font-size: .9375rem;
+  color: var(--text-secondary); font-style: italic; }
+
+/* ---- reveal on scroll ---- */
+.reveal { opacity: 0; transform: translateY(1.5rem);
+          transition: opacity .7s cubic-bezier(.16,1,.3,1),
+                      transform .7s cubic-bezier(.16,1,.3,1); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+@media print { .theme-toggle, .skip { display: none !important; } }
+
+
+body { padding-top: 4.375rem; }
+[id] { scroll-margin-top: 5.5rem; }
+
+/* ——— ambient (jwoolson's blurred spheres, re-hued) ——— */
+.ambient { position: fixed; inset: 0; pointer-events: none;
+           z-index: 0; overflow: hidden; }
+.ambient i { position: absolute; border-radius: 50%; display: block; }
+.ambient .s1 { top: -14%; right: -10%; width: 60vw; height: 60vw;
+  max-width: 50rem; max-height: 50rem; filter: blur(80px); opacity: .7;
+  background: radial-gradient(circle, var(--accent-glow) 0%, rgba(236, 28, 36,0) 70%); }
+.ambient .s2 { bottom: 8%; left: -15%; width: 50vw; height: 50vw;
+  max-width: 44rem; max-height: 44rem; filter: blur(90px); opacity: .55;
+  background: radial-gradient(circle, var(--stone-glow) 0%, rgba(217,164,65,0) 70%); }
+
+/* ——— navbar ——— */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  background: var(--nav-bg); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border); }
+.nav-wrap { display: flex; align-items: center; justify-content: space-between;
+            gap: 1rem; height: 4.375rem; }
+.nav-brand { display: flex; align-items: center; gap: .75rem;
+             text-decoration: none; color: var(--text-primary); }
+.nav-brand svg { width: 8rem; height: auto; display: block; }
+.logo .lt { fill: var(--logo-type); }
+.logo .lm { fill: var(--logo-mark); }
+.nav-brand .sub { font-family: var(--font-mono); font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted);
+  padding-left: .75rem; border-left: 1px solid var(--border); }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { color: var(--text-secondary); text-decoration: none;
+  font-size: .9rem; font-weight: 550; transition: var(--transition); }
+.nav-links a:hover { color: var(--accent); }
+@media (max-width: 46rem) { .nav-links:not(.open) { display: none; }
+                            .nav-brand .sub { display: none; } }
+
+/* ——— hero ——— */
+.hero { padding: 4rem 0 1.5rem; }
+.hero-badge { display: inline-flex; align-items: center; gap: .5rem;
+  padding: .35rem .875rem; margin-bottom: 1.25rem;
+  border-radius: var(--radius-full);
+  background: var(--tag-bg); border: 1px solid var(--tag-border);
+  color: var(--tag-text); font-size: .85rem; font-weight: 500; }
+.hero-badge .dot { width: .5rem; height: .5rem; border-radius: 50%;
+  background: var(--stone); box-shadow: 0 0 .625rem var(--stone);
+  animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+.hero h1 { font-size: clamp(2.1rem, 5vw, 3.1rem); font-weight: 800;
+           letter-spacing: -0.035em; margin-bottom: .75rem; max-width: 18ch; }
+.hero-subtitle { font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 650;
+  color: var(--stone); margin-bottom: 1.125rem; font-family: var(--font-mono);
+  letter-spacing: -0.01em; }
+.hero-summary { font-size: 1.2rem; line-height: 1.7; color: var(--text-secondary);
+                max-width: 48rem; }
+.hero-summary + .hero-summary { margin-top: .875rem; }
+.hero-summary strong { color: var(--text-primary); font-weight: 650; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.875rem 0 1.5rem; }
+
+/* ——— the folder (signature) ——— */
+.folder { border: 1px solid var(--border); border-radius: var(--radius-lg);
+  background: var(--bg-card); backdrop-filter: blur(10px);
+  overflow: hidden; }
+.folder-bar { display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .75rem; padding: .75rem 1rem;
+  border-bottom: 1px solid var(--border); background: var(--bg-subtle); }
+/* Matched to .toggle-group button: same .864rem, same 600 weight, so the two
+   halves of the folder bar sit on one line of the type scale. 600 rather than
+   700 keeps the path from outweighing MANIFEST.md in the tree below it. */
+.folder-path { font-family: var(--font-mono); font-size: .92rem; font-weight: 600;
+               color: var(--text-muted); }
+/* Sized 20% up from the rest of the card's furniture: this control is the
+   point of the section, so it should not read as a caption. */
+.toggle-group { position: relative; display: inline-flex; padding: .225rem; gap: .225rem;
+  background: var(--bg-primary); border: 1px solid var(--border);
+  border-radius: var(--radius-full); transition: var(--transition); }
+/* The control is the point of this section, so it has to announce itself.
+   A ring rather than a thicker border: box-shadow costs no layout, and it
+   leaves the `outline` property free for :focus-visible. The ring lives on
+   ::after so the throb animates opacity only (compositor, no repaint), and it
+   reuses the .hero-badge .dot `pulse` keyframes so the two beat together. */
+.toggle-group::after { content: ""; position: absolute; inset: -1px;
+  border-radius: inherit; box-shadow: 0 0 0 3px var(--accent-glow);
+  pointer-events: none; animation: pulse 2.4s ease-in-out infinite; }
+/* Hover and :focus-within hold the ring steady at full, so the pulse hands
+   off to a clear "this is live" cue; keyboard users get the same as the mouse. */
+.toggle-group:hover, .toggle-group:focus-within { border-color: var(--border-accent); }
+.toggle-group:hover::after, .toggle-group:focus-within::after { animation: none; }
+/* And the inactive half lights up, so it is clear which one the click lands on.
+   The pressed rules below are more specific, so the active button keeps its
+   fill and its label colour while hovered. */
+.toggle-group button:hover { color: var(--text-primary); background: var(--bg-subtle); }
+.toggle-group button { padding: .36rem 1.05rem; border: none; cursor: pointer;
+  border-radius: var(--radius-full); background: none; color: var(--text-muted);
+  font-family: var(--font-mono); font-size: .864rem; font-weight: 600;
+  letter-spacing: .05em; text-transform: uppercase; transition: var(--transition); }
+.toggle-group button[aria-pressed="true"] { background: var(--btn-bg);
+  color: var(--btn-text); }
+/* The manifest view is the stone world — MANIFEST.md and its annotations are
+   stone, so the control that opens it matches. --accent-contrast inverts with
+   the theme, which is what both backgrounds need. */
+.toggle-group #btn-after[aria-pressed="true"] { background: var(--stone);
+  color: var(--accent-contrast); }
+/* Narrow phones: the longer brand name wraps each label onto two lines at the
+   size above, so tighten type, tracking and padding to hold one line each.
+   Fits down to a 360px viewport. */
+@media (max-width: 28rem) {
+  .toggle-group button { padding: .36rem .6rem; font-size: .72rem;
+    letter-spacing: .02em; white-space: nowrap; }
+}
+
+.tree { margin: 0; padding: 1.25rem 1rem; overflow-x: auto;
+  font-family: var(--font-mono); font-size: .8125rem; line-height: 1.9;
+  color: var(--text-secondary); }
+.tree .dir { color: var(--accent); font-weight: 600; }
+.tree .note { color: var(--text-muted); }
+.tree .man { color: var(--stone); font-weight: 600; }
+.tree .unknown { color: var(--text-muted); font-style: italic; }
+.folder-caption { padding: 0 1rem 1.125rem; font-size: .8125rem;
+                  color: var(--text-muted); }
+.folder-caption .when { font-family: var(--font-mono); font-weight: 600;
+                        color: var(--stone); margin-right: .5em; }
+
+.manifest { border-top: 1px solid var(--border); padding: 1.25rem 1rem;
+            background: var(--bg-subtle); }
+.manifest pre { overflow-x: auto; font-family: var(--font-mono);
+  font-size: .78rem; line-height: 1.85; color: var(--text-secondary); }
+.manifest .key { color: var(--accent); }
+.manifest .rule { color: var(--text-muted); }
+.manifest-label { font-family: var(--font-mono); font-size: .7rem;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--stone);
+  font-weight: 600; margin-bottom: .75rem; }
+
+/* ——— ladder ——— */
+.ladder { list-style: none; counter-reset: rung; display: flex;
+          flex-direction: column; gap: .375rem; }
+.ladder li { display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; padding: .75rem 1rem; border-radius: var(--radius-md);
+  border: 1px solid var(--border); background: var(--bg-card);
+  font-size: .9375rem; font-weight: 550; }
+.ladder li span { font-family: var(--font-mono); font-size: .7rem;
+  text-transform: uppercase; letter-spacing: .09em; color: var(--text-muted);
+  flex: none; }
+.ladder li.highlight-gold { border-color: rgba(217,164,65,.4);
+  background: linear-gradient(90deg, rgba(217,164,65,.14), transparent); }
+.ladder li.highlight-gold span { color: var(--stone); }
+.ladder li.highlight-moss { border-color: rgba(156,186,95,.4);
+  background: linear-gradient(90deg, rgba(156,186,95,.14), transparent); }
+.ladder li.highlight-moss span { color: var(--moss); }
+
+@media (max-width: 40rem) {
+  .hero { padding: 2.5rem 0 2rem; }
+  .tree { font-size: .72rem; }
+  .ladder li { flex-direction: column; gap: .25rem; }
+}
+
+/* ——— C: the hero carries the photo, so the navbar starts transparent ——— */
+body { padding-top: 0; }
+
+.navbar { transition: background-color .3s, border-color .3s; }
+.at-top .navbar { background: transparent; border-bottom-color: transparent;
+                  backdrop-filter: none; }
+.at-top .nav-links a { color: rgba(255, 255, 255, .88);
+                       text-shadow: 0 1px 6px rgba(0, 0, 0, .55); }
+.at-top .nav-links a:hover { color: #fff; }
+.at-top .theme-toggle { background: rgba(8, 16, 26, .45); color: #fff;
+                        border-color: rgba(255, 255, 255, .22); }
+.at-top .theme-toggle:hover { border-color: rgba(255, 255, 255, .45); }
+
+/* the handoff: hidden (and out of the tab order) while the hero mark is up */
+.nav-brand { transition: opacity .3s, transform .3s, visibility .3s; }
+.at-top .nav-brand { opacity: 0; visibility: hidden; transform: translateY(-.4rem); }
+
+.hero {
+  position: relative; padding: 8.5rem 0 4rem;
+  background: #10202f url('images/10x_Dunkirk-wide-fullsize-3000px-IMG_1676.webp')
+              center / cover no-repeat;
+  isolation: isolate;
+}
+.hero::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to bottom,
+    rgba(6, 12, 20, .58) 0%, rgba(6, 12, 20, .38) 28%,
+    rgba(8, 13, 20, .74) 76%, var(--bg-primary) 100%);
+}
+[data-theme="light"] .hero::after {
+  background: linear-gradient(to bottom,
+    rgba(6, 12, 20, .54) 0%, rgba(6, 12, 20, .40) 28%,
+    rgba(10, 16, 24, .80) 76%, var(--bg-primary) 100%);
+}
+
+.hero .wordmark { width: 20rem; max-width: 80vw;
+  --logo-type: #fff; --logo-mark: #ec1c24;
+  margin-bottom: 2rem; filter: drop-shadow(0 2px 10px rgba(0, 0, 0, .55)); }
+.hero .wordmark svg { width: 100%; height: auto; display: block; }
+
+/* the hero always sits on the photo, so its colours are fixed, not themed */
+.hero .hero-badge { background: rgba(8, 16, 26, .55);
+  border-color: rgba(255, 255, 255, .20); color: rgba(255, 255, 255, .90);
+  backdrop-filter: blur(8px); }
+.hero h1 { color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, .45); }
+.hero .hero-subtitle { color: #f2cd86; text-shadow: 0 1px 8px rgba(0, 0, 0, .55); }
+.hero .hero-summary { color: rgba(255, 255, 255, .88);
+                      text-shadow: 0 1px 8px rgba(0, 0, 0, .55); }
+.hero .hero-summary strong { color: #fff; }
+.hero .chip { background: rgba(8, 16, 26, .45); color: rgba(255, 255, 255, .88);
+              border-color: rgba(255, 255, 255, .18); backdrop-filter: blur(8px); }
+.hero .btn-secondary { background: rgba(8, 16, 26, .5); color: #fff;
+                       border-color: rgba(255, 255, 255, .22); }
+.hero .btn-secondary:hover { background: rgba(8, 16, 26, .75);
+                             border-color: rgba(255, 255, 255, .4); }
+
+@media (max-width: 46rem) {
+  .hero { padding: 7rem 0 2.5rem; }
+  .hero .wordmark { width: 15rem; margin-bottom: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .navbar, .nav-brand { transition: none; }
+}
+/* ——— mobile menu (jwoolson.com pattern): below 46rem the links fold into a drop-down ——— */
+.menu-toggle { display: none; }
+@media (max-width: 46rem) {
+  .menu-toggle { display: inline-flex; }
+  .nav-links.open { display: flex; flex-direction: column; gap: 1.1rem;
+    position: fixed; top: 4.375rem; left: 0; right: 0;
+    max-height: calc(100vh - 4.375rem); overflow-y: auto; padding: 1.5rem;
+    background: var(--bg-secondary); border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-lg); }
+  /* the drop-down is always solid, so undo the white-on-photo link colours */
+  .nav-links.open a, .at-top .nav-links.open a { color: var(--text-secondary);
+    text-shadow: none; font-size: 1rem; }
+  .nav-links.open a:hover, .at-top .nav-links.open a:hover { color: var(--accent); }
+}
+/* ——— active nav item (jwoolson.com pattern): accent colour + 2px underline.
+   .active is set by the homepage scroll-spy; aria-current marks the current page. ——— */
+.nav-links a { position: relative; }
+.nav-links a.active, .nav-links a[aria-current="page"],
+.nav-links.open a.active, .nav-links.open a[aria-current="page"],
+.at-top .nav-links.open a.active { color: var(--accent); }
+.nav-links a.active::after, .nav-links a[aria-current="page"]::after {
+  content: ''; position: absolute; left: 0; bottom: -4px; width: 100%; height: 2px;
+  background: var(--accent); border-radius: 2px; }
+/* over the dark hero photo, use the bright red (#ff5a5f, the dark-theme accent) in both themes:
+   the light-theme accent #c8161d is too dark to read on the photo */
+.at-top .nav-links a.active { color: #ff5a5f; }
+.at-top .nav-links a.active::after { background: #ff5a5f; }
+.nowrap { white-space: nowrap; }
+  </style>
+  <script>
+    if ('IntersectionObserver' in window && window.scrollY === 0)
+      document.documentElement.classList.add('at-top');
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="ambient" aria-hidden="true"><i class="s1"></i><i class="s2"></i></div>
+
+  <nav class="navbar" aria-label="Primary">
+    <div class="container nav-wrap">
+      <a class="nav-brand" href="#top" id="navBrand"><svg class="logo" role="img" aria-label="Arkeotype" xmlns="http://www.w3.org/2000/svg" viewBox="11 9 337 77"><path class="lt" d="M131.12,65.71h-8.45l-2.26-7.01h-13.34l-2.29,7.01h-8.56l12.76-35h9.53l12.61,35ZM118.45,52.61l-4.66-14.45-4.72,14.45h9.38Z"/><path class="lt" d="M148.92,45.84c-4.45,0-6.81,2.02-8.26,3.2v16.67h-7.38v-25.84h7.38v3.35c1.82-1.96,4.19-4.03,8.26-4.03v6.65Z"/><path class="lt" d="M176.99,65.71h-8.81l-7.6-10.79-1.92,2.22v8.57h-7.38V30.71h7.38v18.14l8.26-8.98h8.89c-.08,0-9.18,10.28-9.61,10.63l10.79,15.21Z"/><path class="lt" d="M202.19,54.44h-18.01c.23,1.42.67,6.24,5.4,6.24,2.75,0,3.99-1.6,4.7-3.25h7.6c-1.46,5.07-5.07,8.96-12.32,8.96-8.82,0-13.2-6.29-13.2-13.6s4.38-13.6,13.2-13.6c11.14,0,13.08,9.59,12.63,15.24ZM194.63,50.01c-.43-2.32-1.5-5.09-5.07-5.09s-4.82,2.77-5.26,5.09h10.32Z"/><path class="lt" d="M231.23,52.79c0,7.31-4.53,13.6-13.35,13.6s-13.35-6.29-13.35-13.6,4.53-13.6,13.35-13.6,13.35,6.29,13.35,13.6ZM223.52,52.79c0-3.46-1.2-7.5-5.63-7.5s-5.63,4.05-5.63,7.5,1.2,7.5,5.63,7.5,5.63-4.05,5.63-7.5Z"/><path class="lt" d="M248.26,65.32c-.62.32-2.3,1-4.83,1-3.91,0-7.66-1.12-7.66-7.86v-13.11h-3.36v-5.47h3.36c0-3.68,0-6.42,0-6.42h7.38v6.42h4.81v5.47h-4.81c0,6.18,0,12.38,0,12.43,0,1.99.4,2.58,2.12,2.58,1.2,0,1.99-.4,2.35-.54l.63,5.49Z"/><path class="lt" d="M277.03,39.88c-.12.29-10.2,29.49-10.29,29.7-.42,1.31-1.86,6.83-9.59,6.83-3.96,0-5.21-.78-5.34-.84l.85-5.9c.44.21,1.49.54,3.55.54,2.21,0,3.12-1.71,3.45-2.58.05-.14.43-1.09.9-2.31l-10.81-25.45h8.33l6.05,16.67c.82-2.05,4.58-15.51,5.05-16.67h7.84Z"/><path class="lt" d="M304.76,52.79c0,7.31-3.29,13.6-10.46,13.6-3.78,0-6.18-1.57-7.56-4.29v13.59h-7.38v-35.81h7.38v2.58c1.74-1.7,4.2-3.25,7.45-3.25,7.16,0,10.57,6.29,10.57,13.6ZM297.04,52.79c0-3.45-.86-7.5-5.14-7.5-2.25,0-4,1.25-5.16,2.3v4.07c0,3.45.81,8.63,5.04,8.63s5.25-4.05,5.25-7.5Z"/><path class="lt" d="M333.05,54.44h-18.01c.23,1.42.67,6.24,5.4,6.24,2.75,0,3.99-1.6,4.7-3.25h7.6c-1.46,5.07-5.07,8.96-12.32,8.96-8.82,0-13.2-6.29-13.2-13.6s4.38-13.6,13.2-13.6c11.14,0,13.08,9.59,12.63,15.24ZM325.49,50.01c-.43-2.32-1.5-5.09-5.07-5.09s-4.82,2.77-5.26,5.09h10.32Z"/><path class="lt" d="M331.6,34.58h5.62v.96h-2.24v6.52h-1.15v-6.52h-2.24v-.96ZM345.74,34.58v7.48h-1.15v-5.64l-2.13,5.64h-1.02l-2.13-5.65v5.65h-1.15v-7.48h1.6l2.19,5.94,2.2-5.94h1.59Z"/><path class="lm" d="M85.81,47.42c0,20.12-16.31,36.44-36.44,36.44S12.94,67.54,12.94,47.42,29.25,10.98,49.37,10.98s36.44,16.31,36.44,36.44ZM49.37,17.59c-16.47,0-29.83,13.35-29.83,29.83s13.35,29.83,29.83,29.83,29.83-13.35,29.83-29.83-13.35-29.83-29.83-29.83ZM62.12,37.81c-2.36,0-4.51.85-6.19,2.25-.71.44-1.51.61-1.97.31-.42-.26-.71-1.42-.55-2.12h-.01c.19-.75.3-1.53.3-2.34,0-5.34-4.33-9.66-9.66-9.66s-9.66,4.33-9.66,9.66,4.33,9.66,9.66,9.66c.01,0,.02,0,.04,0,1.26,0,2.53-.24,3.76-.76.25-.11.79-.39.82-.41.21-.11,1.16-.71,1.16-.71.74-.62,1.84-.93,2.37-.6.45.29.72,1.35.55,2.12h0c-.17.73-.27,1.48-.27,2.25,0,.16.15,1.74.27,2.25,0,.03.01.06.02.09.11.71-.17,1.77-.57,2.02-.55.35-1.59.06-2.37-.6h-.02c-.09-.06-1.25-.76-1.31-.8-.19-.1-.38-.21-.58-.29-.94-.41-1.91-.65-2.88-.75-.1,0-.98-.05-1.01-.05-5.34,0-9.66,4.33-9.66,9.66s4.33,9.66,9.66,9.66,9.66-4.33,9.66-9.66c0-.8-.11-1.57-.29-2.32h.01c-.17-.78.1-1.84.55-2.13.44-.27,1.26-.1,1.96.31,1.68,1.41,3.84,2.26,6.2,2.26,5.34,0,9.66-4.33,9.66-9.66s-4.33-9.66-9.66-9.66Z"/></svg></a>
+      <div class="nav-right">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#top">Home</a></li>
+          <li><a href="#folder">The problem</a></li>
+          <li><a href="#triad">How it works</a></li>
+<!-- 
+          <li><a href="#products">Products</a></li>
+ -->
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" type="button" id="themeToggle"
+          aria-label="Switch to light theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+  </button>
+        <button class="theme-toggle menu-toggle" type="button" id="menuToggle"
+          aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <header class="hero" id="top">
+      <div class="container">
+        <div class="wordmark" id="heroMark" role="img" aria-label="Arkeotype"><svg class="logo" role="img" aria-label="Arkeotype" xmlns="http://www.w3.org/2000/svg" viewBox="11 9 337 77"><path class="lt" d="M131.12,65.71h-8.45l-2.26-7.01h-13.34l-2.29,7.01h-8.56l12.76-35h9.53l12.61,35ZM118.45,52.61l-4.66-14.45-4.72,14.45h9.38Z"/><path class="lt" d="M148.92,45.84c-4.45,0-6.81,2.02-8.26,3.2v16.67h-7.38v-25.84h7.38v3.35c1.82-1.96,4.19-4.03,8.26-4.03v6.65Z"/><path class="lt" d="M176.99,65.71h-8.81l-7.6-10.79-1.92,2.22v8.57h-7.38V30.71h7.38v18.14l8.26-8.98h8.89c-.08,0-9.18,10.28-9.61,10.63l10.79,15.21Z"/><path class="lt" d="M202.19,54.44h-18.01c.23,1.42.67,6.24,5.4,6.24,2.75,0,3.99-1.6,4.7-3.25h7.6c-1.46,5.07-5.07,8.96-12.32,8.96-8.82,0-13.2-6.29-13.2-13.6s4.38-13.6,13.2-13.6c11.14,0,13.08,9.59,12.63,15.24ZM194.63,50.01c-.43-2.32-1.5-5.09-5.07-5.09s-4.82,2.77-5.26,5.09h10.32Z"/><path class="lt" d="M231.23,52.79c0,7.31-4.53,13.6-13.35,13.6s-13.35-6.29-13.35-13.6,4.53-13.6,13.35-13.6,13.35,6.29,13.35,13.6ZM223.52,52.79c0-3.46-1.2-7.5-5.63-7.5s-5.63,4.05-5.63,7.5,1.2,7.5,5.63,7.5,5.63-4.05,5.63-7.5Z"/><path class="lt" d="M248.26,65.32c-.62.32-2.3,1-4.83,1-3.91,0-7.66-1.12-7.66-7.86v-13.11h-3.36v-5.47h3.36c0-3.68,0-6.42,0-6.42h7.38v6.42h4.81v5.47h-4.81c0,6.18,0,12.38,0,12.43,0,1.99.4,2.58,2.12,2.58,1.2,0,1.99-.4,2.35-.54l.63,5.49Z"/><path class="lt" d="M277.03,39.88c-.12.29-10.2,29.49-10.29,29.7-.42,1.31-1.86,6.83-9.59,6.83-3.96,0-5.21-.78-5.34-.84l.85-5.9c.44.21,1.49.54,3.55.54,2.21,0,3.12-1.71,3.45-2.58.05-.14.43-1.09.9-2.31l-10.81-25.45h8.33l6.05,16.67c.82-2.05,4.58-15.51,5.05-16.67h7.84Z"/><path class="lt" d="M304.76,52.79c0,7.31-3.29,13.6-10.46,13.6-3.78,0-6.18-1.57-7.56-4.29v13.59h-7.38v-35.81h7.38v2.58c1.74-1.7,4.2-3.25,7.45-3.25,7.16,0,10.57,6.29,10.57,13.6ZM297.04,52.79c0-3.45-.86-7.5-5.14-7.5-2.25,0-4,1.25-5.16,2.3v4.07c0,3.45.81,8.63,5.04,8.63s5.25-4.05,5.25-7.5Z"/><path class="lt" d="M333.05,54.44h-18.01c.23,1.42.67,6.24,5.4,6.24,2.75,0,3.99-1.6,4.7-3.25h7.6c-1.46,5.07-5.07,8.96-12.32,8.96-8.82,0-13.2-6.29-13.2-13.6s4.38-13.6,13.2-13.6c11.14,0,13.08,9.59,12.63,15.24ZM325.49,50.01c-.43-2.32-1.5-5.09-5.07-5.09s-4.82,2.77-5.26,5.09h10.32Z"/><path class="lt" d="M331.6,34.58h5.62v.96h-2.24v6.52h-1.15v-6.52h-2.24v-.96ZM345.74,34.58v7.48h-1.15v-5.64l-2.13,5.64h-1.02l-2.13-5.65v5.65h-1.15v-7.48h1.6l2.19,5.94,2.2-5.94h1.59Z"/><path class="lm" d="M85.81,47.42c0,20.12-16.31,36.44-36.44,36.44S12.94,67.54,12.94,47.42,29.25,10.98,49.37,10.98s36.44,16.31,36.44,36.44ZM49.37,17.59c-16.47,0-29.83,13.35-29.83,29.83s13.35,29.83,29.83,29.83,29.83-13.35,29.83-29.83-13.35-29.83-29.83-29.83ZM62.12,37.81c-2.36,0-4.51.85-6.19,2.25-.71.44-1.51.61-1.97.31-.42-.26-.71-1.42-.55-2.12h-.01c.19-.75.3-1.53.3-2.34,0-5.34-4.33-9.66-9.66-9.66s-9.66,4.33-9.66,9.66,4.33,9.66,9.66,9.66c.01,0,.02,0,.04,0,1.26,0,2.53-.24,3.76-.76.25-.11.79-.39.82-.41.21-.11,1.16-.71,1.16-.71.74-.62,1.84-.93,2.37-.6.45.29.72,1.35.55,2.12h0c-.17.73-.27,1.48-.27,2.25,0,.16.15,1.74.27,2.25,0,.03.01.06.02.09.11.71-.17,1.77-.57,2.02-.55.35-1.59.06-2.37-.6h-.02c-.09-.06-1.25-.76-1.31-.8-.19-.1-.38-.21-.58-.29-.94-.41-1.91-.65-2.88-.75-.1,0-.98-.05-1.01-.05-5.34,0-9.66,4.33-9.66,9.66s4.33,9.66,9.66,9.66,9.66-4.33,9.66-9.66c0-.8-.11-1.57-.29-2.32h.01c-.17-.78.1-1.84.55-2.13.44-.27,1.26-.1,1.96.31,1.68,1.41,3.84,2.26,6.2,2.26,5.34,0,9.66-4.33,9.66-9.66s-4.33-9.66-9.66-9.66Z"/></svg></div>
+        <p class="hero-badge"><span class="dot" aria-hidden="true"></span>In development &middot; macOS &middot; 2026</p>
+        <h1>The project memory layer.</h1>
+        <p class="hero-subtitle">object &rarr; representation &rarr; context</p>
+        <p class="hero-summary"><strong>Arkeotype</strong>&trade; keeps the <em>meaning</em> of 
+          each project in a plain text file, saved in the project folder, beside
+          the work it describes. No database to lose. No service to cancel.</p>
+        <p class="hero-summary">Backups preserve the files. <strong>Arkeotype</strong>&trade; 
+          preserves the context needed to understand them&thinsp;&mdash;&thinsp;four years
+          later, by someone who has never met you.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="mailto:hello@arkeotype.com?subject=Tell%20me%20when%20Arkeotype%20ships">Tell me when it ships</a>
+          <a class="btn btn-secondary" href="#folder">See the difference &darr;</a>
+        </div>
+        <div class="chips">
+          <span class="chip">Local-first</span>
+          <span class="chip">Vendor-agnostic</span>
+          <span class="chip">Bring your own storage</span>
+          <span class="chip">Plain UTF-8</span>
+          <span class="chip">AI-assisted, not AI-dependent</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="folder">
+      <div class="container">
+        <div class="measure section-head reveal">
+          <p class="eyebrow">The problem</p>
+          <h2>Same folder. Four years later.</h2>
+          <p class="lede">The bytes are fine. Restore from
+            backup and every file comes back exactly as it was. That was never
+            the hard part.</p>
+        </div>
+
+        <div class="folder reveal">
+          <div class="folder-bar">
+            <span class="folder-path">~/Archive/Admissions-Viewbook-2026/</span>
+            <div class="toggle-group" role="group" aria-label="Folder view">
+              <button type="button" id="btn-before" aria-pressed="true">Without Arkeotype</button>
+              <button type="button" id="btn-after" aria-pressed="false">With Arkeotype</button>
+            </div>
+          </div>
+
+          <pre class="tree" id="tree-before">Admissions-Viewbook-2026<span class="dir">/</span>
+├── final_FINAL2-USE-THIS_v84-no-wait-maybe-not.indd
+├── Untitled-3.psd
+├── viewbook_PRINT.pdf
+├── viewbook_PRINT_v2.pdf
+├── DSC_4471.NEF
+└── notes.docx
+
+<span class="unknown">6 items. Which one shipped?</span></pre>
+
+          <pre class="tree" id="tree-after" hidden>Admissions-Viewbook-2026<span class="dir">/</span>
+├── <span class="man">MANIFEST.md</span><span class="note">                        what this is, who made it, what shipped</span>
+├── viewbook_PRINT_v2.pdf<span class="note">              delivered 2026-03-14 · press-ready · FINAL</span>
+├── viewbook_PRINT.pdf<span class="note">                 superseded by v2 — wrong ISBN block</span>
+├── final_FINAL2-USE-THIS_v84-…indd<span class="note">    working file · needs Whitney, see fonts/</span>
+├── Untitled-3.psd<span class="note">                     cover comp, not used</span>
+├── DSC_4471.NEF<span class="note">                       cover photo · credit M. Ruiz · released</span>
+└── notes.docx<span class="note">                         client feedback, round 2</span>
+
+<span class="man">Same six files. Nothing was moved, renamed, or imported.</span></pre>
+
+          <p class="folder-caption"><span class="when" aria-hidden="true">// 2030</span>
+            <span id="folder-caption">Restored from backup in 2030.
+            The designer who made it left in 2027.</span></p>
+
+          <div class="manifest" id="manifest" hidden>
+            <p class="manifest-label">MANIFEST.md &mdash; plain UTF-8, 1.4&nbsp;KB</p>
+<pre><span class="rule">---</span>
+<span class="key">title:</span> Admissions Viewbook 2026
+<span class="key">status:</span> delivered
+<span class="key">delivered:</span> 2026-03-14
+<span class="key">creators:</span> [design: A. Reyes, photo: M. Ruiz]
+<span class="key">supersedes:</span> viewbook_PRINT.pdf
+<span class="key">software:</span> InDesign 21.6 · fonts not embedded
+<span class="rule">---</span>
+
+Press-ready file is viewbook_PRINT_v2.pdf. Do not reprint
+from v1 — the ISBN block was wrong and Admissions caught it
+at proof. The InDesign document needs Whitney; outlines are
+in fonts/ if the license has lapsed.</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="triad">
+      <div class="container">
+        <div class="measure section-head reveal">
+          <p class="eyebrow">The durable unit</p>
+          <h2>Three things travel together.</h2>
+          <p class="lede">Copy the folder and you carry all
+            three. That is the whole mechanism: keep the story <em>about</em> the content right <em>next</em> to the content.</p>
+        </div>
+        <div class="grid reveal">
+          <article class="card">
+            <span class="kicker kicker--moss">01 &middot; Object</span>
+            <h3>Preserve the thing</h3>
+            <p>The original stays in its native form&thinsp;&mdash;&thinsp;<code>.indd</code>,
+              <code>.psd</code>, camera masters, old Quark files, Excel 1997 files, a database dump.
+              Nothing has to become a .md Markdown file to be kept.</p>
+          </article>
+          <article class="card">
+            <span class="kicker kicker--moss">02 &middot; Representation</span>
+            <h3>Preserve a way to perceive it</h3>
+            <p>A transcript beside the video. A PDF beside the <span class="nowrap">MS Publisher</span> layout. A CSV and
+              schema note beside the database. A window into the object for
+              someone who lacks the software that made the original.</p>
+          </article>
+          <article class="card">
+            <span class="kicker kicker--stone">03 &middot; Context</span>
+            <h3>Preserve what it means</h3>
+            <p><strong><code>MANIFEST.md</code></strong> stores: provenance, relationships, decisions, what supersedes what, what to ignore. Structured enough to index (and search), yet loose enough to just write anything into it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="split">
+          <div class="reveal">
+            <p class="eyebrow">Graceful degradation</p>
+            <h2>Every upper layer is removable.</h2>
+            <p class="lede">Indexes regenerate. The interface can disappear and the filesystem remains. AI can disappear and the manifest remains. The Arkeotype app itself can be deleted and the saved collection of project data remains intelligible in any text editor.</p>
+            <p class="lede lede--quiet lede--gap">AI may help reconstruct meaning. AI must never be required to recover it.</p>
+          </div>
+          <ol class="ladder reveal">
+            <li>AI &amp; semantic interpretation <span>optional</span></li>
+            <li>Index, search, interface <span>regenerable</span></li>
+            <li>History &amp; work logs <span>useful</span></li>
+            <li class="highlight-gold">Context &mdash; MANIFEST.md file <span>durable</span></li>
+            <li class="highlight-moss">Object + Representation files <span>the ground</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="measure reveal">
+          <blockquote class="pull quote-block">
+            Design systems for the next human steward, not the current database vendor.
+            <cite>The one sentence Arkeotype is built around</cite>
+          </blockquote>
+          <p class="eyebrow">Boundaries</p>
+          <h2>What Arkeotype is not</h2>
+          <div class="chips">
+            <span class="chip">a backup product</span>
+            <span class="chip">a DAM replacement</span>
+            <span class="chip">an archival database</span>
+            <span class="chip">a note-taking graph</span>
+            <span class="chip">a cloud service</span>
+            <span class="chip">an LLM wrapper</span>
+          </div>
+          <p class="lede lede--gap">It assumes humans are messy,
+            institutions lose continuity, applications disappear, and budgets
+            change. Its only job is to keep those ordinary failures from severing
+            the artifact from its meaning.
+            </p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="container">
+        <div class="measure reveal">
+          <p class="eyebrow">AI LLM Compatibility</p>
+          <h2>How Arkeotype plays well with others</h2>
+          <div class="chips">
+            <span class="chip">GEMINI.md</span>
+            <span class="chip">AGENTS.md</span>
+            <span class="chip">CLAUDE.md</span>
+            <span class="chip">MANIFEST.md</span>
+          </div>
+          <p class="lede lede--gap">
+            <strong><span style="color: var(--moss);">&lt;ai-nerds&gt;</span></strong><br />
+            Arkeotype names its canonical project-description file <strong><code>MANIFEST.md</code></strong> for what that file <em>contains</em>, rather than for which LLM is expected to consume it (<code>CLAUDE.md</code>, <code>GEMINI.md</code>, etc). 
+            </p>
+            <p class="lede lede--gap">However Arkeotype <em>also</em> adds extra <em>(shim)</em> files as pointers alongside <strong><code>MANIFEST.md</code></strong>, so that each supported AI tool encounters the filename it expects, with each shim pointing to the canonical <strong><code>MANIFEST.md</code></strong> in that project folder.<br />
+            <strong><span style="color: var(--moss);">&lt;/ai-nerds&gt;</span></strong>
+            </p>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="container">
+			<p class="closing">The application is temporary scaffolding. The archive is not.</p>
+      <p class="coming">Coming 2026</p>
+      <p class="org">Arkeotype&trade;</p>
+      <p class="loc">Fredonia, New York<br />
+      <a class="mail" href="mailto:hello@arkeotype.com">hello@arkeotype.com</a></p>
+      <p class="incubator"><strong>Arkeotype</strong> is an Affiliate of the
+        <a href="https://www.fredonia.edu/cied">State
+        University of New York at Fredonia (SUNY Fredonia) <strong>Center for
+        Innovation and Economic Development</strong> (CIED)</a>.<br />
+      786B 6364 2E63 6F6D 2F38 3633<br />
+      &copy; 2026 <a href="https://jwoolson.com" target="_blank" rel="noopener noreferrer" class="org-link">Jonathan H. Woolson</a></p>
+      <p class="etymology"><strong>Arkeotype</strong> (<em>ark&middot;e&middot;oh&middot;taip</em>)<br />
+       <br />
+      <strong>manifest</strong>, verb: to cause something otherwise hidden to become apparent.<br />
+      <strong>manifest</strong>, noun: an accounting of what is present.</p>    
+		</div>
+  </footer>
+
+
+  <script>
+
+  // Theme: remembered per browser, defaults to the OS setting.
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    function label() {
+      btn.setAttribute('aria-label', root.dataset.theme === 'light'
+        ? 'Switch to dark theme' : 'Switch to light theme');
+    }
+    try {
+      var saved = localStorage.getItem('arkeotype-theme');
+      if (saved) root.dataset.theme = saved;
+    } catch (e) { /* private browsing — fall back to the OS setting */ }
+    label();
+    btn.addEventListener('click', function () {
+      root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('arkeotype-theme', root.dataset.theme); } catch (e) {}
+      label();
+    });
+  }());
+
+  // Mobile menu: the hamburger opens the nav links as a drop-down;
+  // tapping a link or pressing Escape closes it.
+  (function () {
+    var btn = document.getElementById('menuToggle');
+    var links = document.getElementById('navLinks');
+    function set(open) {
+      links.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    btn.addEventListener('click', function () { set(!links.classList.contains('open')); });
+    links.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && links.classList.contains('open')) { set(false); btn.focus(); }
+    });
+  }());
+
+  // Active nav item: underline the link for the section in view (jwoolson.com pattern).
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+    var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    function spy() {
+      var y = window.scrollY + 120, current = 0;
+      targets.forEach(function (el, i) {
+        if (el && el.getBoundingClientRect().top + window.scrollY <= y) current = i;
+      });
+      links.forEach(function (a, i) { a.classList.toggle('active', i === current); });
+    }
+    spy();
+    window.addEventListener('scroll', spy, { passive: true });
+  }());
+
+  // Reveal on scroll.
+  (function () {
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  }());
+
+
+  // Folder view: the same six files, before and after a manifest.
+  (function () {
+    var before = document.getElementById('tree-before');
+    var after = document.getElementById('tree-after');
+    var manifest = document.getElementById('manifest');
+    var caption = document.getElementById('folder-caption');
+    var bBtn = document.getElementById('btn-before');
+    var aBtn = document.getElementById('btn-after');
+    if (!before) return;
+
+    var text = {
+      before: 'Restored from backup in 2030. The designer who made it left in 2027.',
+      after: 'Same restored project folder. The manifest text file was written once, in 2026, and copied with the folder ever since. The MANIFEST.md remains readable with any text editor.'
+    };
+
+    function show(isAfter) {
+      before.hidden = isAfter;
+      after.hidden = !isAfter;
+      manifest.hidden = !isAfter;
+      caption.textContent = isAfter ? text.after : text.before;
+      bBtn.setAttribute('aria-pressed', String(!isAfter));
+      aBtn.setAttribute('aria-pressed', String(isAfter));
+    }
+    bBtn.addEventListener('click', function () { show(false); });
+    aBtn.addEventListener('click', function () { show(true); });
+  }());
+
+  // The wordmark hands off to the navbar. While it is on screen the bar stays
+  // transparent over the photo; once it scrolls behind the bar, the mark takes
+  // its place. Without IntersectionObserver the page keeps the solid navbar and
+  // its visible mark, which is Option B's behaviour — so nothing is lost.
+  (function () {
+    var mark = document.getElementById('heroMark');
+    var root = document.documentElement;
+    if (!mark || !('IntersectionObserver' in window)) {
+      root.classList.remove('at-top');
+      return;
+    }
+    new IntersectionObserver(function (entries) {
+      root.classList.toggle('at-top', entries[0].isIntersecting);
+    }, { rootMargin: '-70px 0px 0px 0px' }).observe(mark);
+  }());
+  </script>
+  
+	<!-- Google tag (gtag.js) Interaction-Based Lazy Load - Using arkeotype.com GA4 ID: G-F7TT3512GV -->
+	<script>
+		// 1. Initialize dataLayer immediately so code doesn't break
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-F7TT3512GV');
+
+		// 2. Set up the lazy loader
+		(function() {
+			let scriptLoaded = false;
+
+			function loadGtag() {
+				if (scriptLoaded) return;
+				scriptLoaded = true;
+
+				// Inject the script element
+				var gaScript = document.createElement('script');
+				gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-F7TT3512GV';
+				document.body.appendChild(gaScript);
+
+				// Clean up all event listeners once fired
+				triggerEvents.forEach(event => window.removeEventListener(event, loadGtag));
+			}
+
+			// Listen for standard human interaction signals
+			const triggerEvents = ['touchstart', 'scroll', 'mousemove', 'keydown'];
+			triggerEvents.forEach(event => window.addEventListener(event, loadGtag, { passive: true }));
+		})();
+	</script>
+</body>
+</html>
